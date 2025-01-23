@@ -6,7 +6,7 @@ const interval = setInterval(() => {
     // Get ID of a random empty hole
     if (getRandomUnwhackedHoleId()){
         //adds the class
-        document.getElementById(randomHoleId).classList.add("needs-whack");
+        document.getElementById(getRandomUnwhackedHoleId()).classList.add("needs-whack");
     }
 }, 1000);
 
