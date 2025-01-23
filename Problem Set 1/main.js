@@ -4,8 +4,7 @@ let score = 0;
 // and adds the "needs-whack" class
 const interval = setInterval(() => {
     // Get ID of a random empty hole
-    const RandomHoleID = getRandomUnwhackedHoleId();
-    if (RandomHoleID){
+    if (getRandomUnwhackedHoleId()){
         //adds the class
         document.getElementById(randomHoleId).classList.add("needs-whack");
     }
