@@ -25,7 +25,8 @@ for(const id of getAllHoleIds()) {
             }, 500);
             //          3. Increment the score by 1 (and update the score display)
             score += 1;
-            document.getElementById("score").textContent = "Score: `${score}`";
+            let scorestring = score.toString()
+            document.getElementById("score").textContent = "Score: scorestring";
             //          4. If the score is 45 or higher, stop the game (by clearing the interval)
             if (score >= 45) {
                 clearInterval(interval);
