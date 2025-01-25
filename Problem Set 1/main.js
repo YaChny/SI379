@@ -12,12 +12,26 @@ const interval = setInterval(() => {
 
 for(const id of getAllHoleIds()) {
     // Write code that adds a "click" listener to the element with this id
+    const hole = document.getElementById(id);
+    hole.addEventListener("click", () => {
     //     When the user clicks on it, *if* the element has class "needs-whack" then:
-    //          1. Remove the "needs-whack" class
-    //          2. Add the "animating-whack" class *for 500 milliseconds*
-    //          3. Increment the score by 1 (and update the score display)
-    //          4. If the score is 45 or higher, stop the game (by clearing the interval)
-    console.log(`TODO: Add a click listener for #${id} here`);
+        if (hole.classList.contains("needs-whack")) {
+            //          1. Remove the "needs-whack" class
+            hole.classList.remove("needs-whack");
+            //          2. Add the "animating-whack" class *for 500 milliseconds*
+            hole.classList.add("animating-whack");
+            setTimeout(() => {
+                hole.classList.remove("animating-whack");
+            }, 500);
+            //          3. Increment the score by 1 (and update the score display)
+            score += 1;
+            document.getElementById("score").textContent = "Score: ${score}";
+            //          4. If the score is 45 or higher, stop the game (by clearing the interval)
+            if (score >= 45) {
+                clearInterval(interval);
+            }
+        }
+    });
 }
 
 /**
