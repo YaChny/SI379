@@ -53,7 +53,7 @@ function displayGuessFeedback(guess) {
         divGuess.appendChild(spanLetter);
     }
     // 3. Append the guess's <div> element to the existing <div> with ID 'guesses'
-    document.getElementById('guesses').appendChild(divGuess);
+    document.querySelector('#guesses').appendChild(divGuess);
     // 4. Try it out by calling displayGuessFeedback('hello') and displayGuessFeedback('world')
 }
 
