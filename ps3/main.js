@@ -7,12 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedDate = document.getElementById("selected-date");
     const selectedDescription = document.getElementById("selected-description");
   
-    //Set events array
+    //Set events array to get lists of events
     let events = [];
     let selectedIndex = 0;
     let timer;
   
-    // Load events using getUMEventsWithImages and initialize the carousel
+    // Load events using getUMEventsWithImages into the events list and initialize the carousel
     getUMEventsWithImages((eventData) => {
       events = eventData;
       if (events.length > 0) {
@@ -21,4 +21,19 @@ document.addEventListener("DOMContentLoaded", () => {
         startAutoAdvance();
       }
     });
+
+    function renderThumbnails() {
+        thumbnailsContainer.innerHTML = "";
+        events.forEach((event, index) => {
+          const thumbnail = document.createElement("img");
+          thumbnail.src = event.styled_images.event_thumb;
+          thumbnail.id = `thumb-${index}`;
+          thumbnail.addEventListener("click", () => {
+            setSelectedIndex(index);
+            resetAutoAdvance();
+          });
+          thumbnailsContainer.appendChild(thumbnail);
+        });
+      }
 });
+
