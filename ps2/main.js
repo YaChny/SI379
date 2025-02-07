@@ -69,29 +69,35 @@ inputEl.addEventListener('keydown', (event) => {
             return;
         }
         // 1.c. If the guess is the correct answer, use showInfoMessage to display: "You win! The answer was "{correctAnswer}". (where {correctAnswer} is the value of correctAnswer)
-        if (guess.toUpperCase() === correctAnswer.toUpperCase()) {
+        // Using else if
+        else if (guess.toUpperCase() === correctAnswer.toUpperCase()) {
             showInfoMessage(`You win! The answer was "${correctAnswer}".`);
             // 1.c.i. If the guess is correct, also disable the input element so the user can't enter any more guesses (the game is over)
             inputEl.setAttribute('disabled', true); 
-            return;
+            // Remove the original return;
         }
         // 1.d. If the guess is not the correct answer, then:...
-        // 1.d.i. Clear the input element's value
-        inputEl.value = '';
-        // 1.d.ii. Check if the guess is a valid word (using the isValidWord function)
-        isValidWord(guess, (isValid) => {
-            // 1.d.ii.A If the guess is a valid word, display feedback for the guess (using the displayGuessFeedback function from Step 1)
-            if (isValid) {
-                displayGuessFeedback(guess);
-            }
-            // 1.d.ii.B If the guess is not a valid word, show an error message: "{guess} is not a valid word." (where {guess} is the value of the guess)
-            else {
-                showInfoMessage(`${guess} is not a valid word.`);
-            }
-        });
+        else {
+            // 1.d.i. Clear the input element's value
+            inputEl.value = '';
+            // 1.d.ii. Check if the guess is a valid word (using the isValidWord function)
+            isValidWord(guess, (isValid) => {
+                // 1.d.ii.A If the guess is a valid word, display feedback for the guess (using the displayGuessFeedback function from Step 1)
+                if (isValid) {
+                    displayGuessFeedback(guess);
+                }
+                // 1.d.ii.B If the guess is not a valid word, show an error message: "{guess} is not a valid word." (where {guess} is the value of the guess)
+                else {
+                    showInfoMessage(`${guess} is not a valid word.`);
+                }
+            });
+        }
     }
     // 2. When the user presses key other than 'Enter', clear the info message (using the clearInfoMessage function)
     else {
         clearInfoMessage();
     }
 });
+
+// Log the correct answer to the console for debugging purposes
+console.log(correctAnswer); //
