@@ -2,12 +2,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     const API_URL = "https://the-trivia-api.com/api/questions?limit=10";
 
     // Select question and score elements
-    const questionContainer = document.getElementById("questions");
-    const scoreContainer = document.getElementById("score");
+    const questionBox = document.getElementById("questions");
+    const scoreDisplay = document.getElementById("score");
 
     // Set up and initialize score values
     let score = 0;
-    let attempted = 0;
+    let attemptCount = 0;
 
     // To shuffle an array
     function shuffleArray(array) {
@@ -20,6 +20,29 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
         return shuffledArray; // Return the shuffled copy
     }
+
+    // async function fetchWithCache(url, options = {}, cacheDuration = 1000 * 60 * 60) {
+    //     function getResponseObject(data) {
+    //         return new Response(new Blob([JSON.stringify(data)]));
+    //     }
+
+    //     const cachedData = localStorage.getItem(url);
+    //     if (cachedData) {
+    //         const { timestamp, data } = JSON.parse(cachedData);
+    //         if (Date.now() - timestamp < cacheDuration) {
+    //             return Promise.resolve(getResponseObject(data));
+    //         } else {
+    //             localStorage.removeItem(url);
+    //         }
+    //     }
+
+    //     return fetch(url, options)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             localStorage.setItem(url, JSON.stringify({ timestamp: Date.now(), data }));
+    //             return getResponseObject(data);
+    //         });
+    // }
 
     // To fetch questions from API
     async function fetchQuestions() {
@@ -34,14 +57,14 @@ document.addEventListener("DOMContentLoaded", async function () {
             // Log errors to console
             console.error("Error fetching questions:", error);
             // Display error message
-            questionContainer.innerHTML = "Failed to load questions. Please try again.";
+            questionBox.innerHTML = "Failed to load questions. Please try again.";
         }
     }
 
     // To display questions and answers
     function displayQuestions(questions) {
         // Clear any existing questions
-        questionContainer.innerHTML = "";
+        questionBox.innerHTML = "";
         questions.forEach((questionData, index) => {
             // Create a container for the question
             const questionElement = document.createElement("div");
@@ -69,7 +92,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             });
 
             // Append question element to the container
-            questionContainer.appendChild(questionElement);
+            questionBox.appendChild(questionElement);
         });
     }
 
@@ -80,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Disable all buttons to prevent re-selection
         buttons.forEach(btn => btn.disabled = true);
         // Increase attempted questions count
-        attempted++;
+        attemptCount++;
 
 
         if (selectedAnswer === correctAnswer) {
@@ -105,7 +128,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // To update and display the score
     function updateScore() {
         // Update score text
-        scoreContainer.textContent = `Score: ${score}/${attempted}`;
+        scoreDisplay.textContent = `Score: ${score}/${attemptCount}`;
     }
 
     // Fetch and display questions on page load
