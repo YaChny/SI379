@@ -1,13 +1,13 @@
 // Import chroma.js library for color manipulation
 import chroma from 'chroma-js';
 
-// Function to generate a random ball color using chroma.js
+// To generate a random ball color using chroma.js
 function getRandomBallColor() {
     // Generate a random color, darken and saturate it randomly, then return its hex value
     return chroma.random().darken(Math.random() * 2 - 1).saturate(Math.random() * 2 - 1).hex();
 }
 
-// Function to update peg color based on hit count using a color scale
+// To update peg color based on hit count using a color scale
 function updatePegColor(peg, hitCount, maxHits) {
     // Create a color scale from white to red, mapping hit counts to maxHits
     const colorScale = chroma.scale(['white', 'red']).domain([0, maxHits]);
@@ -25,14 +25,18 @@ function easeInQuad(t) {
     return t * t;
 }
 
-// Function to animate the ball movement with easing
+// To animate the ball movement with easing
 async function animateBall(ball, fromX, toX, fromY, toY, duration) {
-    const startTime = Date.now(); // Record the animation start time
+    // Record the animation start time
+    const startTime = Date.now(); 
     return new Promise(resolve => {
         function step() {
-            const elapsed = Date.now() - startTime; // Calculate elapsed time
-            const t = Math.min(elapsed / duration, 1); // Normalize elapsed time to [0, 1]
-            const easedT = easeOutQuad(t); // Apply ease-out easing
+            // Calculate elapsed time
+            const elapsed = Date.now() - startTime; 
+            // Normalize elapsed time to [0, 1]
+            const t = Math.min(elapsed / duration, 1); 
+            // Apply ease-out easing
+            const easedT = easeOutQuad(t); 
 
             // Calculate current X and Y positions
             const currentX = fromX + (toX - fromX) * easedT;
@@ -46,23 +50,31 @@ async function animateBall(ball, fromX, toX, fromY, toY, duration) {
             if (t < 1) {
                 requestAnimationFrame(step);
             } else {
-                resolve(); // Resolve the promise when animation is complete
+                // Resolve the promise when animation is complete
+                resolve(); 
             }
         }
-        step(); // Start animation
+        // Start animation
+        step(); 
     });
 }
 
-// Function to animate the ball dropping with opacity change and downward movement
+// To animate the ball dropping with opacity change and downward movement
 async function animateDrop(ball, duration) {
-    const startY = parseFloat(ball.getAttribute('cy')); // Get the ball's starting Y position
-    const endY = startY + 20; // Calculate the final Y position after dropping
-    const startTime = Date.now(); // Record the animation start time
+    // Get the ball's starting Y position
+    const startY = parseFloat(ball.getAttribute('cy')); 
+    // Calculate the final Y position after dropping
+    const endY = startY + 20; 
+    // Record the animation start time
+    const startTime = Date.now(); 
     return new Promise(resolve => {
         function step() {
-            const elapsed = Date.now() - startTime; // Calculate elapsed time
-            const t = Math.min(elapsed / duration, 1); // Normalize elapsed time to [0, 1]
-            const easedT = easeInQuad(t); // Apply ease-in easing
+            // Calculate elapsed time
+            const elapsed = Date.now() - startTime; 
+            // Normalize elapsed time to [0, 1]
+            const t = Math.min(elapsed / duration, 1); 
+            // Apply ease-in easing
+            const easedT = easeInQuad(t); 
 
             // Calculate current Y position and opacity
             const currentY = startY + (endY - startY) * easedT;
@@ -76,11 +88,14 @@ async function animateDrop(ball, duration) {
             if (t < 1) {
                 requestAnimationFrame(step);
             } else {
-                ball.remove(); // Remove the ball after animation completes
-                resolve(); // Resolve the promise when animation is complete
+                // Remove the ball after animation completes
+                ball.remove(); 
+                // Resolve the promise when animation is complete
+                resolve(); 
             }
         }
-        step(); // Start animation
+        // Start animation
+        step(); 
     });
 }
 
@@ -102,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Example usage: Animate the first ball for demonstration purposes
     animateBall(balls[0], 100, 200, 100, 300, 1000).then(() => {
-        animateDrop(balls[0], 500); // Drop the ball after movement
+        // Drop the ball after movement
+        animateDrop(balls[0], 500); 
     });
 });
