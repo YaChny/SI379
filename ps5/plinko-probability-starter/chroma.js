@@ -1,6 +1,10 @@
 // Import chroma.js library for color manipulation
 import chroma from 'chroma-js';
 
+// Select input elements for number of balls and rightward probability
+const numBallsInput = document.querySelector('#num-balls');
+const rightwardProbInput = document.querySelector('#rightward-prob');
+
 // To generate a random ball color using chroma.js
 function getRandomBallColor() {
     // Generate a random color, darken and saturate it randomly, then return its hex value
@@ -24,6 +28,21 @@ function easeOutQuad(t) {
 function easeInQuad(t) {
     return t * t;
 }
+
+// To redraw the board (placeholder for now, assume existing implementation)
+function redrawBoard() {
+    console.log('Redrawing board with new settings...');
+}
+
+// Disable inputs while balls are falling
+function disableInputs(disabled) {
+    numBallsInput.disabled = disabled;
+    rightwardProbInput.disabled = disabled;
+}
+
+// Event listeners to redraw board when inputs change
+numBallsInput.addEventListener('input', redrawBoard);
+rightwardProbInput.addEventListener('input', redrawBoard);
 
 // To animate the ball movement with easing
 async function animateBall(ball, fromX, toX, fromY, toY, duration) {
@@ -101,13 +120,11 @@ async function animateDrop(ball, duration) {
 
 // Apply the changes to the existing code structure when the document loads
 document.addEventListener('DOMContentLoaded', () => {
-    // Select all balls and assign each a random color
     const balls = document.querySelectorAll('circle');
     balls.forEach(ball => {
         ball.setAttribute('fill', getRandomBallColor());
     });
 
-    // Select all pegs and update their color based on hit counts
     const pegs = document.querySelectorAll('circle.peg');
     let maxHits = Math.max(...Array.from(pegs).map(peg => parseInt(peg.getAttribute('data-hits')) || 0));
     pegs.forEach(peg => {
@@ -116,8 +133,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Example usage: Animate the first ball for demonstration purposes
+    // Disable inputs while balls are falling
+    disableInputs(true); 
     animateBall(balls[0], 100, 200, 100, 300, 1000).then(() => {
-        // Drop the ball after movement
-        animateDrop(balls[0], 500); 
+        animateDrop(balls[0], 500).then(() => {
+            // Re-enable inputs after balls have fallen
+            disableInputs(false); 
+        });
     });
 });
