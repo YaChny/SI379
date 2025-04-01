@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+main {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+span {
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+span.placeholder {
+    opacity: 0.3;
+}
+
+input[type="text"] {
+    flex-grow: 1;
+    padding: 4px 8px;
+    font-size: 1rem;
+}
+
+.task { 
+    display: flex; align-items: center; margin-bottom: 10px; 
+}
+
+.task input[type="text"] { 
+    margin-right: 10px; 
+}
+.task .lemons { 
+    margin-left: 10px; color: orange; 
+}

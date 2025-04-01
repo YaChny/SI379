@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lemon Timer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Lemon Timer</h1>
+    <label>Work Duration (minutes): <input type="number" id="work-duration" value="25"></label>
+    <label>Break Duration (minutes): <input type="number" id="break-duration" value="5"></label>
+    <br><br>
+    <input type="text" id="new-task" placeholder="New task">
+    <button onclick="addTask()">Add Task</button>
+    <div id="tasks"></div>
+    <div class="timer" id="timer"></div>
+    <button id="cancel" onclick="cancelTimer()" class="hidden">Cancel Timer</button>
+
+
+  <!-- The timer interface is injected by JavaScript -->
+  <script type="module" src="main.js"></script>
+</body>
+</html>
