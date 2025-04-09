@@ -227,6 +227,7 @@ async function dropBalls() {
 }
 
 dropButton.addEventListener('click', e => {
+    redrawBoard();
     e.preventDefault();
     if (!isDropping) {
         dropBalls();
