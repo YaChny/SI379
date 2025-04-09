@@ -14,6 +14,6 @@ export default function Slider(props) {
 
     return <>
             <input type="number" min={min} max={max} value={value} onChange={handleChange} />
-            <input type="range"  min={min} max={max} value={value} onChange={handleChange} />
+            <input type="range"  min="0" max="255" value={value} onChange={handleChange}/>
         </>;
 }
