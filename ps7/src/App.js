@@ -76,13 +76,22 @@ export default function App() {
         style={{ backgroundColor: `rgb(${target.r}, ${target.g}, ${target.b})` }}
       ></div>
 
-      {/* Display correct RGB code after guessing */}
+      {/* Display correct RGB code and guessed color after guessing */}
       {showAnswer && (
-        <p className="answer">Correct RGB: ({target.r}, {target.g}, {target.b})</p>
+        <>
+          <div
+            className="color-box guess"
+            style={{ backgroundColor: `rgb(${r}, ${g}, ${b})` }}
+          >
+            Your Guess
+          </div>
+          <p className="answer">Correct RGB: ({target.r}, {target.g}, {target.b})</p>
+          <p className="answer">Your Guess RGB: ({r}, {g}, {b})</p>
+        </>
       )}
 
       {/* Display user guess if cheating mode is on */}
-      {cheating && (
+      {cheating && !showAnswer && (
         <div
           className="color-box guess"
           style={{ backgroundColor: `rgb(${r}, ${g}, ${b})` }}
@@ -91,25 +100,25 @@ export default function App() {
         </div>
       )}
 
-      {/* RGB sliders with color-coded labels */}
+      {/* RGB sliders with real-time values */}
       <div className="sliders">
         <div className="slider-group red">
-          <label className="slider-label">Red</label>
+          <label className="slider-label">Red: {r}</label>
           <Slider label="Red" value={r} onChange={setR} />
         </div>
         <div className="slider-group green">
-          <label className="slider-label">Green</label>
+          <label className="slider-label">Green: {g}</label>
           <Slider label="Green" value={g} onChange={setG} />
         </div>
         <div className="slider-group blue">
-          <label className="slider-label">Blue</label>
+          <label className="slider-label">Blue: {b}</label>
           <Slider label="Blue" value={b} onChange={setB} />
         </div>
       </div>
 
       {/* Action buttons */}
       <button className="btn primary" onClick={handleGuess}>Guess</button>
-      <button className="btn secondary" onClick={generateNewTarget}>Try a New Color</button>
+      <button className="btn secondary" onClick={generateNewTarget}>Play Again</button>
 
       {/* Feedback message */}
       {feedback && <p className="feedback">{feedback}</p>}
