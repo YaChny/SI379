@@ -5,6 +5,7 @@ const MoodCanvas = () => {
   const canvasRef = useRef();
   const { emotion, setEmotion } = useEmotion();
   const [speed, setSpeed] = useState(1);
+  const [theme, setTheme] = useState("classic");
 
   useEffect(() => {
     const sketch = (p) => {
@@ -13,6 +14,13 @@ const MoodCanvas = () => {
       let faces = [];
       let canvasW = window.innerWidth;
       let canvasH = window.innerHeight;
+
+      const emojiMap = {
+        classic: { happy: "💖", sad: "💧" },
+        faces: { happy: "😄", sad: "😢" },
+        party: { happy: "🥳", sad: "😞" },
+        weather: { happy: "🌞", sad: "🌧" }
+      };
 
       p.setup = () => {
         p.createCanvas(canvasW, canvasH);
@@ -29,18 +37,21 @@ const MoodCanvas = () => {
       };
 
       p.draw = () => {
-        // Background animation affected by speed
         if (emotion === "happy") {
           p.background(255, 230, 240);
           p.fill(255, 0, 100, 100);
           for (let i = 0; i < 10 * speed; i++) {
-            p.ellipse(p.random(canvasW), p.random(canvasH), p.random(30, 60));
+            const size = p.random(48, 99);
+            p.textSize(size);
+            p.text(emojiMap[theme].happy, p.random(canvasW), p.random(canvasH));
           }
         } else if (emotion === "sad") {
           p.background(180, 200, 255);
           p.fill(0, 100, 200, 80);
           for (let i = 0; i < 5 * speed; i++) {
-            p.ellipse(p.random(canvasW), p.random(canvasH), p.random(40, 80), p.random(40, 60));
+            const size = p.random(36, 77);
+            p.textSize(size);
+            p.text(emojiMap[theme].sad, p.random(canvasW), p.random(canvasH));
           }
         } else {
           p.background(240);
@@ -76,11 +87,11 @@ const MoodCanvas = () => {
 
     const myp5 = new window.p5(sketch, canvasRef.current);
     return () => myp5.remove();
-  }, [emotion, setEmotion, speed]);
+  }, [emotion, setEmotion, speed, theme]);
 
   return (
     <>
-      <div style={{ position: "absolute", top: 10, left: 10, zIndex: 10, background: "#ffffffcc", padding: "8px", borderRadius: "8px" }}>
+      <div style={{ position: "absolute", top: 10, left: 10, zIndex: 10, background: "#ffffffcc", padding: "10px", borderRadius: "8px" }}>
         <label>
           Animation Speed: {speed.toFixed(1)}
           <input
@@ -92,6 +103,16 @@ const MoodCanvas = () => {
             onChange={(e) => setSpeed(parseFloat(e.target.value))}
             style={{ width: "150px", marginLeft: "10px" }}
           />
+        </label>
+        <br />
+        <label>
+          Theme:&nbsp;
+          <select value={theme} onChange={(e) => setTheme(e.target.value)}>
+            <option value="classic">Classic</option>
+            <option value="faces">Faces</option>
+            <option value="party">Party</option>
+            <option value="weather">Weather</option>
+          </select>
         </label>
       </div>
       <div ref={canvasRef} style={{ position: "fixed", top: 0, left: 0, zIndex: -1 }}></div>
